@@ -33,3 +33,43 @@ router.get(
   tokenHandler.verifyToken,
   boardController.getOne
 )
+
+
+router.get(
+  '/favourites',
+  tokenHandler.verifyToken,
+  boardController.getFavourites
+)
+
+router.put(
+  '/favourites',
+  tokenHandler.verifyToken,
+  boardController.updateFavouritePosition
+)
+
+
+
+router.put(
+  '/:boardId',
+  param('boardId').custom(value => {
+    if (!validation.isObjectId(value)) {
+      return Promise.reject('invalid id')
+    } else return Promise.resolve()
+  }),
+  validation.validate,
+  tokenHandler.verifyToken,
+  boardController.update
+)
+
+router.delete(
+  '/:boardId',
+  param('boardId').custom(value => {
+    if (!validation.isObjectId(value)) {
+      return Promise.reject('invalid id')
+    } else return Promise.resolve()
+  }),
+  validation.validate,
+  tokenHandler.verifyToken,
+  boardController.delete
+)
+module.exports = router
