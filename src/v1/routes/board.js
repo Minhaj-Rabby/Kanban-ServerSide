@@ -23,19 +23,6 @@ router.put(
 )
 
 router.get(
-  '/:boardId',
-  param('boardId').custom(value => {
-    if (!validation.isObjectId(value)) {
-      return Promise.reject('invalid id')
-    } else return Promise.resolve()
-  }),
-  validation.validate,
-  tokenHandler.verifyToken,
-  boardController.getOne
-)
-
-
-router.get(
   '/favourites',
   tokenHandler.verifyToken,
   boardController.getFavourites
@@ -47,7 +34,17 @@ router.put(
   boardController.updateFavouritePosition
 )
 
-
+router.get(
+  '/:boardId',
+  param('boardId').custom(value => {
+    if (!validation.isObjectId(value)) {
+      return Promise.reject('invalid id')
+    } else return Promise.resolve()
+  }),
+  validation.validate,
+  tokenHandler.verifyToken,
+  boardController.getOne
+)
 
 router.put(
   '/:boardId',
@@ -72,4 +69,6 @@ router.delete(
   tokenHandler.verifyToken,
   boardController.delete
 )
+
+
 module.exports = router

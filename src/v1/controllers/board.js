@@ -56,6 +56,7 @@ exports.getOne = async (req, res) => {
     res.status(500).json(err)
   }
 }
+
 exports.update = async (req, res) => {
   const { boardId } = req.params
   const { title, description, favourite } = req.body
